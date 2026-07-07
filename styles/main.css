@@ -1,0 +1,131 @@
+main {
+    min-height: calc(100vh - 155px);
+    padding: 40px;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+#pokemonContent {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pokemon_card {
+    width: 230px;
+    background: #0d2b36;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,.08);
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    font: inherit;
+    text-align: left;
+}
+
+.pokemon_card:hover {
+    transform: translateY(-10px);
+    transition: 0.3s;
+}
+
+.header_card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px;
+    background: #0d2b36;
+}
+
+.header_card h2 {
+    text-transform: capitalize;
+    color: white;
+    font-size: 1.3rem;
+}
+
+.header_card p {
+    color: white;
+}
+
+.main_card {
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main_card img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    filter: drop-shadow(5px 5px 5px #272626);
+}
+
+.footer_card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 18px;
+    background: #0d2b36;
+}
+
+.icon_typ_style {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon_typ_style img {
+    width: 28px;
+    height: 28px;
+}
+
+.loadMoreBtn {
+    margin: 40px auto;
+    display: block;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 8px;
+    background: #204856;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.loadMoreBtn:hover {
+    background: #317d98;
+}
+
+.loadMoreBtn:disabled {
+    background: gray;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+@media (max-width: 700px) {
+    main {
+        padding: 20px;
+    }
+
+    .header_style {
+        height: auto;
+    }
+
+    .header_inner {
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+    }
+
+    input {
+        width: 100%;
+    }
+}

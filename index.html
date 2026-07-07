@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex</title>
+
+    <link rel="shortcut icon" href="./assets/icons/favicon.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="./styles/header.css">
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/type.css">
+    <link rel="stylesheet" href="./styles/footer.css">
+    <link rel="stylesheet" href="./styles/card.css">
+
+    <script src="./scripts/script.js" defer></script>
+    <script src="./scripts/search.js" defer></script>
+    <script src="./scripts/card.js" defer></script>
+    <script src="./scripts/template.js" defer></script>
+</head>
+<body>
+
+    <header class="header_style">
+        <div class="header_inner">
+            <section class="header_left">
+                <a href="./index.html" class="header_left_link" aria-label="Back to homepage">
+                    <img src="./assets/icons/pokemon-icon.svg" alt="Pokedex Icon">
+                    <h1>Pokédex</h1>
+                </a>
+            </section>
+
+            <section class="search-wrapper">
+                <div class="search-bar">
+                    <input id="search-input" data-id="search-input" class="search" type="text" placeholder="Search Pokémon" aria-label="Search Pokémon" oninput="validateSearchInput()" onkeydown="if(event.key === 'Enter') searchPokemon()">
+                    <button id="search-button" data-id="search-button" class="search-button" aria-label="Search" onclick="searchPokemon()" disabled>Search</button>
+                </div>
+                <p id="searchError" class="error"></p>
+            </section>
+        </div>
+    </header>
+
+    <main data-id="content">
+        <ul id="pokemonContent" aria-label="Pokémon list"></ul>
+        <button class="loadMoreBtn" id="load-more-button" data-id="load-more-button" aria-label="Load more Pokémon" onclick="loadMorePokemon()">Load More</button>
+    </main>
+
+    <div id="loadingScreen" class="loading-screen hidden">
+        <img src="./assets/icons/pokemon-icon.svg" alt="Loading" class="loading-logo">
+        <p>Loading...</p>
+    </div>
+
+    <dialog id="dialog" data-id="dialog" class="card-content" aria-label="Pokémon details" onclick="overlayClick(event)">
+        <button id="close-dialog-button" data-id="close-dialog-button" class="card-close" aria-label="Close dialog" onclick="closeCard()">&times;</button>
+        <button id="prev-button" data-id="prev-button" class="card-nav card-prev" aria-label="Show previous Pokémon" onclick="navigateCard(-1)">&#10094;</button>
+        <button id="next-button" data-id="next-button" class="card-nav card-next" aria-label="Show next Pokémon" onclick="navigateCard(1)">&#10095;</button>
+        <div id="cardBody" data-id="overlay-pokemon-name"></div>
+    </dialog>
+
+</body>
+</html>
