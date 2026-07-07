@@ -2,8 +2,6 @@ let limit = 20;
 let offset = 0;
 let allPokemon = [];
 
-fetchPokemon();
-
 async function fetchPokemon() {
     showLoadingScreen();
     try {
