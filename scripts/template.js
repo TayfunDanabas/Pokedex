@@ -9,7 +9,7 @@ function templateContent(pokemonData, type, index) {
 
     return `
         <li>
-            <button class="pokemon_card" data-id="card" aria-label="View ${pokemonData.name} details" onclick="openCard(${index})">
+            <button class="pokemon_card" data-id="card" data-index="${index}" aria-label="View ${pokemonData.name} details" onclick="openCard(${index})">
                 <header class="header_card">
                     <p>#${pokemonData.id}</p>
                     <h2>${pokemonData.name}</h2>
@@ -54,12 +54,18 @@ function templateTabButton(tab, label, activeTab) {
     return `<button class="tab_btn${tab === activeTab ? " active" : ""}" data-tab="${tab}" aria-label="Show ${label} tab" onclick="switchTab('${tab}')">${label}</button>`;
 }
 
-function templateInfoPanel(heightM, weightKg, abilities) {
+function templateInfoPanel(heightM, weightKg, abilities, description) {
     return `
-        <div class="info_grid">
-            ${templateInfoItem("Height", `${heightM} m`)}
-            ${templateInfoItem("Weight", `${weightKg} kg`)}
-            ${templateInfoItem("Abilities", abilities, true)}
+        <div class="info_columns">
+            <div class="info_column_left">
+                ${templateInfoItem("Height", `${heightM} m`)}
+                ${templateInfoItem("Weight", `${weightKg} kg`)}
+                ${templateInfoItem("Abilities", abilities)}
+            </div>
+            <div class="info_column_right">
+                <span class="info_label">Description</span>
+                <p class="info_description">${description}</p>
+            </div>
         </div>
     `;
 }

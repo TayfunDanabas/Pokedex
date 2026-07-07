@@ -166,10 +166,44 @@ body.card-open {
     color: white;
 }
 
+.info_columns {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.info_column_left {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+    min-width: 110px;
+}
+
+.info_column_right {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1.4;
+}
+
+.info_description {
+    font-size: .9rem;
+    line-height: 1.5;
+    color: white;
+}
+
+@media (max-width: 500px) {
+    .info_columns {
+        flex-direction: column;
+    }
+}
+
 .evolution-list {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
     gap: 10px;
 }
 

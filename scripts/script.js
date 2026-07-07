@@ -23,6 +23,7 @@ function appendPokemonCards(pokemonDataList) {
         allPokemon.push(pokemonData);
         renderRef.innerHTML += templateContent(pokemonData, type, allPokemon.length - 1);
     });
+    if (typeof refreshVisiblePokemonList === "function") refreshVisiblePokemonList();
 }
 
 async function renderPokemon(pokemonList) {

@@ -1,3 +1,6 @@
+let activeFilterTerm = "";
+let visiblePokemonIndices = [];
+
 function validateSearchInput() {
     let input = document.getElementById("search-input").value.trim();
 
@@ -13,6 +16,7 @@ function validateSearchInput() {
 }
 
 function resetSearch() {
+    activeFilterTerm = "";
     document.getElementById("searchError").innerText = "";
     document.getElementById("search-button").disabled = true;
     toggleLoadMoreBtn(true);
@@ -33,6 +37,7 @@ function searchPokemon() {
     let input = document.getElementById("search-input").value.toLowerCase().trim();
     if (input.length < 3) return;
 
+    activeFilterTerm = input;
     toggleLoadMoreBtn(false);
     filterCards(input);
 }
@@ -46,13 +51,23 @@ function toggleLoadMoreBtn(show) {
 function filterCards(input) {
     let cards = document.getElementsByClassName("pokemon_card");
     let hasMatches = false;
+    let indices = [];
     for (let i = 0; i < cards.length; i++) {
         let name = cards[i].getElementsByTagName("h2")[0].innerText.toLowerCase();
         let matches = name.includes(input);
         cards[i].closest("li").classList.toggle("hidden", !matches);
-        if (matches) hasMatches = true;
+        if (matches) {
+            hasMatches = true;
+            indices.push(Number(cards[i].dataset.index));
+        }
     }
+    visiblePokemonIndices = indices;
     updateNotFoundMessage(hasMatches);
+    if (typeof updateCardNavIfOpen === "function") updateCardNavIfOpen();
+}
+
+function refreshVisiblePokemonList() {
+    filterCards(activeFilterTerm);
 }
 
 function updateNotFoundMessage(hasMatches) {

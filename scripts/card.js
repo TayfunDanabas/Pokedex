@@ -1,6 +1,7 @@
 let currentCardIndex = null;
 let currentTab = "info";
 let pokemonDetailCache = {};
+let pokemonDescriptionCache = {};
 let scrollPosition = 0;
 
 const statLabels = {
@@ -38,10 +39,26 @@ function overlayClick(event) {
 }
 
 function navigateCard(step) {
-    const nextIndex = currentCardIndex + step;
-    if (nextIndex < 0 || nextIndex >= allPokemon.length) return;
-    currentCardIndex = nextIndex;
+    let posInList = -1;
+    for (let i = 0; i < visiblePokemonIndices.length; i++) {
+        if (visiblePokemonIndices[i] === currentCardIndex) {
+            posInList = i;
+            break;
+        }
+    }
+    if (posInList === -1) return;
+
+    const nextPos = posInList + step;
+    if (nextPos < 0 || nextPos >= visiblePokemonIndices.length) return;
+
+    currentCardIndex = visiblePokemonIndices[nextPos];
     renderCard();
+}
+
+function updateCardNavIfOpen() {
+    if (currentCardIndex !== null) {
+        updateNavButtons();
+    }
 }
 
 function goToPokemonByName(name) {
@@ -72,8 +89,15 @@ async function renderCard() {
 }
 
 function updateNavButtons() {
-    document.getElementById("prev-button").disabled = currentCardIndex === 0;
-    document.getElementById("next-button").disabled = currentCardIndex === allPokemon.length - 1;
+    let posInList = -1;
+    for (let i = 0; i < visiblePokemonIndices.length; i++) {
+        if (visiblePokemonIndices[i] === currentCardIndex) {
+            posInList = i;
+            break;
+        }
+    }
+    document.getElementById("prev-button").disabled = posInList <= 0;
+    document.getElementById("next-button").disabled = posInList === -1 || posInList === visiblePokemonIndices.length - 1;
 }
 
 function updateTabButtons() {
@@ -86,7 +110,7 @@ function renderTabPanel() {
     const pokemonData = allPokemon[currentCardIndex];
 
     if (currentTab === "info") {
-        document.getElementById("tabPanel").innerHTML = renderInfoPanel(pokemonData);
+        renderInfoPanel(pokemonData);
     } else if (currentTab === "stats") {
         document.getElementById("tabPanel").innerHTML = templateStatsPanel(buildStatRows(pokemonData.stats));
     } else {
@@ -94,7 +118,10 @@ function renderTabPanel() {
     }
 }
 
-function renderInfoPanel(pokemonData) {
+async function renderInfoPanel(pokemonData) {
+    const requestIndex = currentCardIndex;
+    const requestTab = currentTab;
+
     const heightM = (pokemonData.height / 10).toFixed(1);
     const weightKg = (pokemonData.weight / 10).toFixed(1);
     const abilityNames = [];
@@ -104,7 +131,37 @@ function renderInfoPanel(pokemonData) {
     }
     const abilities = abilityNames.join(", ");
 
-    return templateInfoPanel(heightM, weightKg, abilities);
+    document.getElementById("tabPanel").innerHTML = templateInfoPanel(heightM, weightKg, abilities, "Loading...");
+
+    let description = "Description unavailable";
+    try {
+        description = await fetchPokemonDescription(pokemonData);
+    } catch (error) {
+        description = "Description unavailable";
+    }
+
+    if (requestIndex !== currentCardIndex || requestTab !== currentTab) return;
+
+    document.getElementById("tabPanel").innerHTML = templateInfoPanel(heightM, weightKg, abilities, description);
+}
+
+async function fetchPokemonDescription(pokemonData) {
+    if (pokemonDescriptionCache[pokemonData.name]) return pokemonDescriptionCache[pokemonData.name];
+
+    const speciesRes = await fetch(pokemonData.species.url);
+    const speciesData = await speciesRes.json();
+
+    let description = "No description available";
+    for (let i = 0; i < speciesData.flavor_text_entries.length; i++) {
+        const entry = speciesData.flavor_text_entries[i];
+        if (entry.language.name === "en") {
+            description = entry.flavor_text.replace(/\f/g, " ").replace(/\n/g, " ");
+            break;
+        }
+    }
+
+    pokemonDescriptionCache[pokemonData.name] = description;
+    return description;
 }
 
 function buildStatRows(stats) {
