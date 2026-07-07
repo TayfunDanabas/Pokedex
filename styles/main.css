@@ -119,6 +119,10 @@ main {
     text-align: center;
 }
 
+.not-found.hidden {
+    display: none;
+}
+
 .not-found p {
     font-size: 1.2rem;
     color: white;
