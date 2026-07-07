@@ -110,6 +110,20 @@ main {
     opacity: 0.5;
 }
 
+.not-found {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    text-align: center;
+}
+
+.not-found p {
+    font-size: 1.2rem;
+    color: white;
+}
+
 @media (max-width: 700px) {
     main {
         padding: 20px;

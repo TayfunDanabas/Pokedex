@@ -56,10 +56,10 @@ function filterCards(input) {
 }
 
 function updateNotFoundMessage(hasMatches) {
-    let notFound = document.querySelector('[data-id="not-found"]');
+    let notFound = document.querySelector('.not-found');
     if (!notFound) {
         notFound = document.createElement("li");
-        notFound.setAttribute("data-id", "not-found");
+        notFound.classList.add("not-found");
         const text = document.createElement("p");
         text.innerText = "No match found.";
         notFound.appendChild(text);
