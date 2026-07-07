@@ -215,13 +215,14 @@ body.card-open {
     justify-content: center;
     gap: 10px;
     height: 100%;
-    align-content: center;
+    align-content: flex-start;
 }
 
 .evolution_stage {
     display: flex;
     align-items: center;
     gap: 10px;
+    width: 110px;
 }
 
 .evolution_stage_item {
@@ -255,6 +256,24 @@ body.card-open {
     width: 16px;
     height: 16px;
     opacity: .5;
+}
+
+@media (max-width: 480px) {
+    .evolution-list {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+    }
+
+    .evolution_stage {
+        flex-direction: column;
+        gap: 4px;
+        width: auto;
+    }
+
+    .evolution_arrow {
+        transform: rotate(90deg);
+    }
 }
 
 @media (max-width: 700px) {
