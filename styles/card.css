@@ -14,7 +14,9 @@ body.card-open {
     justify-self: center;
     width: calc(100% - 40px);
     max-width: 480px;
+    max-height: 90vh;
     margin: auto;
+    overflow-y: auto;
 }
 
 .card-content::backdrop {
@@ -142,8 +144,7 @@ body.card-open {
     gap: 14px;
     justify-self: center;
     width: 200px;
-    height: 100%;
-    align-content: center;
+    min-height: 100%;
 }
 
 .info_grid .info_item {
@@ -214,7 +215,7 @@ body.card-open {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    height: 100%;
+    min-height: 100%;
     align-content: flex-start;
 }
 
