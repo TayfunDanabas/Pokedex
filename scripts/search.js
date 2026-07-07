@@ -49,7 +49,7 @@ function filterCards(input) {
     for (let i = 0; i < cards.length; i++) {
         let name = cards[i].getElementsByTagName("h2")[0].innerText.toLowerCase();
         let matches = name.includes(input);
-        cards[i].classList.toggle("hidden", !matches);
+        cards[i].closest("li").classList.toggle("hidden", !matches);
         if (matches) hasMatches = true;
     }
     updateNotFoundMessage(hasMatches);
