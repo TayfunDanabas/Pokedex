@@ -140,6 +140,15 @@ body.card-open {
     display: flex;
     flex-wrap: wrap;
     gap: 14px;
+    justify-self: center;
+    width: 200px;
+    height: 100%;
+    align-content: center;
+}
+
+.info_grid .info_item {
+    align-items: center;
+    text-align: center;
 }
 
 .info_item {
@@ -205,6 +214,8 @@ body.card-open {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    height: 100%;
+    align-content: center;
 }
 
 .evolution_stage {
